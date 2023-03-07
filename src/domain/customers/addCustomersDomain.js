@@ -1,51 +1,59 @@
-import AppError from "../../errors/appError";
 import { cpf, cnpj } from 'cpf-cnpj-validator';
-//import Customer from '../../database/models/Customer';
+import Customer from '../../models/Customer';
 
-export default async (file) => {
+export default async function (file) {
   try {
     const { buffer } = file;
     let str = buffer.toString("utf-8")
 
-     //map para transformar string em array
-    var customersLine = str.split('\n').map(line => { return line.split(/\s+/);});
+    //map para transformar string em array
+    let customersLine = str.split('\n').map(line => { return line.split(/\s+/); });
 
     //Remove primeira linha - cabeçario do txt
     customersLine.shift();
 
-    let customers = [];
-    customersLine.map(customer => {
+    let customersData = [];
+    customersLine.map(async customer => {
 
       //Regex para remover pontos, traços e barras
-      const formatCpf = customer[0].replace(/[^\d]+/g,'')
-      const formatLojaFrequente = customer[6].replace(/[^\d]+/g,'')
-      const formatUltimaLoja = customer[7].replace(/[^\d]+/g,'')
+      const formatCpf = customer[0].replace(/[^\d]+/g, '')
+      const formatLojaFrequente = customer[6].replace(/[^\d]+/g, '')
+      const formatUltimaLoja = customer[7].replace(/[^\d]+/g, '')
 
-      if(cpf.isValid(formatCpf) 
-      && cnpj.isValid(formatLojaFrequente) 
-      && cnpj.isValid(formatUltimaLoja)){
-        customers.push({
-          CPF: formatCpf,
-          private: customer[1],
-          incompleto: customer[2],
-          ultima_compra: customer[3],
-          ticket_medio: customer[4],
-          ticket_ultima_compra: customer[5],
+      if (cpf.isValid(formatCpf)
+        && cnpj.isValid(formatLojaFrequente)
+        && cnpj.isValid(formatUltimaLoja)) {
+
+        customersData.push({
+          cpf: formatCpf,
+          private: parseInt(customer[1]),
+          incompleto: parseInt(customer[2]),
+          ultima_compra: new Date(customer[3]),
+          ticket_medio: parseFloat(customer[4].replace(",", ".")),
+          ticket_ultima_compra: parseFloat(customer[5].replace(",", ".")),
           loja_frequente: formatLojaFrequente,
           ultima_loja: formatUltimaLoja,
+          created_at: new Date(),
+          updated_at: new Date(),
         })
       }
     })
-console.log(customers)
-    //await Customer.create(customers)
 
-    return { status: 201, message: "sucess" };
-  } catch (err) {
-    console.log(err)
-    throw new AppError(
-      "error to update profile",
-      "@profiles/profile_not_updated",
-      400
-    );
+    for (const customerData of customersData) {
+      if (customerData) {
+        await Customer.create(customerData);
+      }
+    }
+
+    return;
+  } catch (error) {
+    return {
+      error: {
+        code: '@customer/customer-not-created',
+        message: 'Invalid Payload',
+        details: error.message,
+      },
+    }
   }
+
 };
