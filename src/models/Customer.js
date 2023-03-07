@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 import sequelize from '~/database/sequelize';
 
 const Customer = sequelize.define('Customer', {
@@ -38,5 +38,3 @@ const Customer = sequelize.define('Customer', {
 
   
   module.exports = Customer;
-
-

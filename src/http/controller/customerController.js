@@ -9,7 +9,10 @@ import {
 /*
  * Endpoint de registro de todos os customers
  */
+
 export const addAllCustomers = async (req, res) => {
+
+    //Lê arquivo txt na request
     await uploadFileMiddleware(req, res)
     
     const { file } = req;
@@ -22,6 +25,7 @@ export const addAllCustomers = async (req, res) => {
 /*
  * Pegar registro de customer pelo cpf
  */
+
 export const getCustomerByCpf = async (req, res) => {
    const { cpf } = req.params;
 
@@ -33,6 +37,7 @@ export const getCustomerByCpf = async (req, res) => {
 /*
  * Atualizar registro de customer pelo cpf
  */
+
 export const updateCustomerByCpf = async (req, res) => {
   const { cpf } = req.params;
   const data = req.body;
@@ -42,10 +47,10 @@ export const updateCustomerByCpf = async (req, res) => {
   return res.status(201).json({ status: 'Success', date: new Date() });
 };
 
-
 /*
  * Deletar registro de customer pelo cpf
  */
+
 export const deleteCustomerByCpf = async (req, res) => {
   const { cpf } = req.params;
 

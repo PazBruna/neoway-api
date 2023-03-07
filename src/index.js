@@ -16,9 +16,10 @@ app.use(express.json());
 
 
 /*
- *
- *  Handler de rotas
+ *  Handler de rotas, percorre o array de rotas, 
+ *  considerando seus middlewares e controllers. 
  */
+
 for (const group of routes.reverse()) {
   const router = Router();
   for (const route of group.routes) {
@@ -47,6 +48,7 @@ app.use(errorHandler);
 /**
  * START
  */
+
 app.listen(appConfig.PORT, () => {
   console.log("\n");
   console.log(`Sequelize status`)
