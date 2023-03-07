@@ -11,5 +11,26 @@ export default {
       middlewares: [],
       handler: customerController.addAllCustomers,
     },
+    {
+      method: "DELETE",
+      path: "/:cpf",
+      description: "Delete a customer by cpf",
+      middlewares: [],
+      handler: customerController.deleteCustomerByCpf,
+    },
+    {
+      method: "GET",
+      path: "/:cpf",
+      description: "Get a customer by cpf",
+      middlewares: [],
+      handler: customerController.getCustomerByCpf,
+    },
+    {
+      method: "PUT",
+      path: "/:cpf",
+      description: "Update a customer by cpf",
+      middlewares: [],
+      handler: customerController.updateCustomerByCpf,
+    },
   ],
 };

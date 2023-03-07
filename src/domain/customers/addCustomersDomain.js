@@ -39,12 +39,24 @@ export default async function (file) {
       }
     })
 
-    for (const customerData of customersData) {
-      if (customerData) {
-        await Customer.create(customerData);
-      }
-    }
+    // for (const customerData of customersData) {
+    //   if (customerData) {
+    //     await Customer.create(customerData);
+    //   }
+    // }
 
+    await Customer.create({
+      cpf: '466447458065',
+      private: 1,
+      incompleto: 1,
+      ultima_compra: new Date(),
+      ticket_medio: 33.30,
+      ticket_ultima_compra: 40.40,
+      loja_frequente: '123456',
+      ultima_loja: '1234567',
+      created_at: new Date(),
+      updated_at: new Date(),
+    })
     return;
   } catch (error) {
     return {
