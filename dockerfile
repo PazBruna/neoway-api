@@ -1,7 +1,7 @@
 FROM node:12
 WORKDIR /usr/app
 COPY . .
-RUN yarn install
+RUN yarn 
 RUN yarn build
-EXPOSE 8080
-CMD [ "npm","start" ]
+EXPOSE 3000
+CMD yarn dev
