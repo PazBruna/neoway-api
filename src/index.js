@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import cors from "cors";
 import helmet from "helmet";
 
-import routes from "./routes/index";
+import routes from "./http/routes/index";
 import schemaValidator from "./middlewares/schemaValidator";
 import errorHandler from "./middlewares/errorHandler";
 
@@ -14,9 +14,10 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
+
 /*
  *
- * Routes Handler
+ *  Handler de rotas
  */
 for (const group of routes.reverse()) {
   const router = Router();
@@ -45,10 +46,10 @@ app.use(errorHandler);
 
 /**
  * START
- *
  */
 app.listen(appConfig.PORT, () => {
   console.log("\n");
+  console.log(`Sequelize status`)
   console.log(`🚀 ${appConfig.NAME}`);
   console.log(`Running on port: ${appConfig.PORT}`);
   console.log(`Enviroment: ${appConfig.ENV}`);
