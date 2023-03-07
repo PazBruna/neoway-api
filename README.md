@@ -8,16 +8,45 @@
 - Banco de dados Relacional `Postgres`
 - operações de SQL com `Sequelize`
 - Building
-  - Configuração de ambiente seguindo o arquivo `.env.example` 
+  - Configuração de ambiente seguindo o arquivo `.env.example`
+- Camada de segurança com `Helmet`
+- Arquitetura de rotas customizadas
+- Leitura de arquivo .txt com `Multer` 
   
-## Enpoints/Rotas
+## Endpoints/Rotas
 
-| Method | Endpoint | Docs | Description |
-| :------------ | :------------ | :------------| :----------- |
-| `POST` | `/customer/register` | --- | Inserção de múltiplos registros na base de dados, a partir de um arquivo .txt
-| `GET` | `/customer/:cpf` | --- | Busca registro de customer especifico, a partir do CPF (`Primary Key`).
-| `PUT` | `/customer/:cpf` | --- | Altera qualquer valor no registro de um customer, a partir do seu CPF.
-| `DELETE` | `/customer/:cpf` | --- | Exclui registro de um customer da base de dados, a partir da sua primary key (`CPF`).
+| Method | Endpoint | Description |
+| :------------ | :------------ | :----------- |
+| `POST` | `/customer/register`  | Inserção de múltiplos registros na base de dados, a partir de um arquivo .txt
+| `GET` | `/customer/:cpf` | Busca registro de customer especifico, a partir do CPF (`Primary Key`).
+| `PUT` | `/customer/:cpf` | Altera qualquer valor no registro de um customer, a partir do seu CPF.
+| `DELETE` | `/customer/:cpf`| Exclui registro de um customer da base de dados, a partir da sua primary key (`CPF`).
+
+## Estrutura de arquivos
+
+	.
+	├── src/
+	|  ├── http/
+	|  |	└── routes/
+	|  |	└── controller/
+	|  ├── domain/
+	|  |	└── customers/
+	|  |	|	└── addCustomersDomain.js
+	|  ├── models/
+	|  |	└── Customer.js
+	|  ├── middlewares/
+	|  |	└── multerValidator.js
+	|  ├── errors/
+	|  ├── database/
+	|  |	└── migrations/
+	|  |	└── sequelize.js
+	|  ├── config/
+	|  └── index.js
+	├── .env
+	├── .env.example
+	├── .gitignore
+	├── package.json
+	└── README.md
 
 ## Desenvolvimento Com docker-compose
 
@@ -51,9 +80,7 @@ A request deve estar em formato 'multipart form' e o campo name como 'file'. O V
 
 1 - Instale o [node v12]() e [yarn]().
 
-2 - Instale o [Docker](https://docs.docker.com/engine/install/).
-
-3 - Instale o [Insomnia](https://insomnia.rest/download).
+2 - Instale o [Insomnia](https://insomnia.rest/download).
 
 #### Prepare o projeto
 
@@ -64,12 +91,11 @@ $ cd neoway-api
 ```
 3 - Verifique o arquivo .env.example para a configuração das variaveis de ambiente
 ```
-Obs: Neste caso, o arquivo .env esta presente na raiz do projeto.
+Obs: Neste caso, o arquivo .env esta presente na raiz do projeto. (Não recomendado em projetos de produção)
 ```
-4 - Intale todas as dependencias e execute o arquivo Docker-Compose
+4 - Intale todas as dependencias
 ```sh
 $ yarn ou npm install
-$ docker-compose up
 ```
 5 - Rode a migration
 ```sh
