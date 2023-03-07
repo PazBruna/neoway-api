@@ -21,3 +21,18 @@ export const appConfig = {
   PORT: process.env.APP_PORT,
   ENV: process.env.NODE_ENV,
 };
+
+export const databaseConfig = {
+  dialect: 'postgres',
+  host: process.env.DB_HOST,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE,
+  define: {
+    timestamps: true,
+    underscored: true,
+    underscoredAll: true,
+  },
+}
+
+export default databaseConfig;
