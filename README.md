@@ -19,7 +19,33 @@
 | `PUT` | `/customer/:cpf` | --- | Altera qualquer valor no registro de um customer, a partir do seu CPF.
 | `DELETE` | `/customer/:cpf` | --- | Exclui registro de um customer da base de dados, a partir da sua primary key (`CPF`).
 
-## Desenvolvimento
+## Desenvolvimento Com docker-compose
+
+#### Prepare o ambiente
+
+1 - Instale o [Docker](https://docs.docker.com/engine/install/).
+
+#### Prepare o projeto
+
+2 - Clone este repositório
+```sh
+$ git clone https://github.com/PazBruna/neoway-api.git
+$ cd neoway-api
+```
+3 - Verifique o arquivo .env.example para a configuração das variaveis de ambiente
+```
+Obs: Neste caso, o arquivo .env esta presente na raiz do projeto.
+```
+4 - execute o arquivo Docker-Compose
+```sh
+$ docker-compose up
+```
+5 - Para enviar o arquivo .txt utilize o `insomnia`
+```
+A request deve estar em formato 'multipart form' e o campo name como 'file'. O Value deve ser do tipo .txt
+```
+
+## Desenvolvimento 
 
 #### Prepare o ambiente
 
